@@ -14,6 +14,7 @@
 		B65597A31CF06A5500A02348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65597A11CF06A5500A02348 /* LaunchScreen.storyboard */; };
 		B65597AF1CF07F3700A02348 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597AE1CF07F3700A02348 /* MainViewController.swift */; };
 		B65597B11CF084BB00A02348 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B65597B01CF084BB00A02348 /* README.md */; };
+		B65597B31CF0880C00A02348 /* SearchFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B21CF0880C00A02348 /* SearchFieldViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B65597A41CF06A5500A02348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B65597AE1CF07F3700A02348 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Sources/MainViewController.swift; sourceTree = "<group>"; };
 		B65597B01CF084BB00A02348 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B65597B21CF0880C00A02348 /* SearchFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFieldViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				B65597AE1CF07F3700A02348 /* MainViewController.swift */,
+				B65597B21CF0880C00A02348 /* SearchFieldViewController.swift */,
 				B655979A1CF06A5500A02348 /* LookupResultsCollectionViewController.swift */,
 			);
 			name = Controllers;
@@ -157,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B65597B31CF0880C00A02348 /* SearchFieldViewController.swift in Sources */,
 				B655979B1CF06A5500A02348 /* LookupResultsCollectionViewController.swift in Sources */,
 				B65597991CF06A5500A02348 /* AppDelegate.swift in Sources */,
 				B65597B11CF084BB00A02348 /* README.md in Sources */,

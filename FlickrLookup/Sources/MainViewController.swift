@@ -11,13 +11,12 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet private var containerView: UIView!
+    private static let searchFieldSegueId = "EmbedSearchFieldSegue"
+    private static let searchResultsSegueId = "LookupKeywordSegue"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        containerView.layer.cornerRadius = 5.0
-        containerView.layer.masksToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,17 +24,31 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        // TODO:
-        return true
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == self.dynamicType.searchFieldSegueId {
+            if let searchFieldController = segue.destinationViewController as? SearchFieldViewController {
+                searchFieldController.onPerformLookup = { [weak self] lookupKey in
+                    guard let localSelf = self else { return }
+                    
+                    localSelf.performSegueWithIdentifier(localSelf.dynamicType.searchResultsSegueId, sender: lookupKey)
+                }
+                searchFieldController.stringValidator = { string in
+                    let stringToCheck = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    return !stringToCheck.isEmpty
+                }
+            }
+        }
     }
     
-    // MARK: Actions
+
+    // MARK: - Actions
     
-    @IBAction func lookupButtonDidPress(sender: UIButton) {
-        // TODO:
+    @IBAction func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .Ended {
+            view.endEditing(true)
+        }
     }
-    
+
     @IBAction func unwindToMainController(segue: UIStoryboardSegue) {
     }
 }

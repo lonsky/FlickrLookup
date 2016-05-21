@@ -7,6 +7,68 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Search Field View Controller-->
+        <scene sceneID="Eut-1V-UPH">
+            <objects>
+                <viewController id="Kyw-kq-U2F" customClass="SearchFieldViewController" customModule="FlickrLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X0a-gC-jwr"/>
+                        <viewControllerLayoutGuide type="bottom" id="IN9-q3-SFR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wQ1-gM-gcz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFH-Vj-cxE" userLabel="Search Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter lookup keyword" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6va-OW-i6P">
+                                        <rect key="frame" x="5" y="5" width="522" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Kyw-kq-U2F" id="cQg-Pq-eR6"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-Mj-cD6">
+                                        <rect key="frame" x="537" y="11" width="58" height="18"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <state key="normal" title="Search"/>
+                                        <connections>
+                                            <action selector="lookupButtonDidPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zQd-z5-cyo"/>
+                                            <action selector="searchButtonDidPress:" destination="Kyw-kq-U2F" eventType="touchUpInside" id="4c1-Ih-QQv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="o2w-Mj-cD6" firstAttribute="centerY" secondItem="LFH-Vj-cxE" secondAttribute="centerY" id="DAk-k7-dKD"/>
+                                    <constraint firstItem="6va-OW-i6P" firstAttribute="centerY" secondItem="LFH-Vj-cxE" secondAttribute="centerY" id="Ndc-nS-snK"/>
+                                    <constraint firstAttribute="trailing" secondItem="o2w-Mj-cD6" secondAttribute="trailing" constant="5" id="Xb1-ZN-2cO"/>
+                                    <constraint firstItem="6va-OW-i6P" firstAttribute="leading" secondItem="LFH-Vj-cxE" secondAttribute="leading" constant="5" id="cbl-fP-dS2"/>
+                                    <constraint firstItem="o2w-Mj-cD6" firstAttribute="leading" secondItem="6va-OW-i6P" secondAttribute="trailing" constant="10" id="g7m-5H-jkB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LFH-Vj-cxE" firstAttribute="top" secondItem="X0a-gC-jwr" secondAttribute="bottom" id="Beg-hR-eBD"/>
+                            <constraint firstItem="LFH-Vj-cxE" firstAttribute="leading" secondItem="wQ1-gM-gcz" secondAttribute="leading" id="So6-i0-b4m"/>
+                            <constraint firstItem="IN9-q3-SFR" firstAttribute="top" secondItem="LFH-Vj-cxE" secondAttribute="bottom" id="T05-HW-H5i"/>
+                            <constraint firstAttribute="trailing" secondItem="LFH-Vj-cxE" secondAttribute="trailing" id="Wl7-2U-Xwd"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="40"/>
+                    <connections>
+                        <outlet property="lookupTextField" destination="6va-OW-i6P" id="gwH-PN-k6b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xu3-jW-5Kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="531" y="-391"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -25,51 +87,41 @@
                                 <color key="textColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="un0-CU-Vfp" userLabel="Search Container View">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TC-pT-lF6">
                                 <rect key="frame" x="60" y="130" width="480" height="40"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter lookup keyword" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vqk-VW-tRC">
-                                        <rect key="frame" x="5" y="5" width="402" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baO-4a-rEQ">
-                                        <rect key="frame" x="417" y="11" width="58" height="18"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                                        <state key="normal" title="Search"/>
-                                        <connections>
-                                            <action selector="lookupButtonDidPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bAz-mQ-vTb"/>
-                                            <segue destination="HXx-K7-RX5" kind="show" identifier="PerformSearchSegue" id="gbv-7r-6KA"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="baO-4a-rEQ" firstAttribute="centerY" secondItem="un0-CU-Vfp" secondAttribute="centerY" id="3dy-mo-APK"/>
-                                    <constraint firstItem="vqk-VW-tRC" firstAttribute="centerY" secondItem="un0-CU-Vfp" secondAttribute="centerY" id="4YD-oS-RyT"/>
-                                    <constraint firstItem="vqk-VW-tRC" firstAttribute="leading" secondItem="un0-CU-Vfp" secondAttribute="leading" constant="5" id="7W9-oO-9Ts"/>
-                                    <constraint firstAttribute="height" constant="40" id="FeE-mQ-yrj"/>
-                                    <constraint firstAttribute="trailing" secondItem="baO-4a-rEQ" secondAttribute="trailing" constant="5" id="ecp-ry-3cv"/>
-                                    <constraint firstItem="baO-4a-rEQ" firstAttribute="leading" secondItem="vqk-VW-tRC" secondAttribute="trailing" constant="10" id="uRR-Pc-mLc"/>
+                                    <constraint firstAttribute="height" constant="40" id="tcn-i8-ZmS"/>
                                 </constraints>
-                            </view>
+                                <connections>
+                                    <segue destination="Kyw-kq-U2F" kind="embed" identifier="EmbedSearchFieldSegue" id="EYJ-sp-2IV"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="un0-CU-Vfp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="0z0-bO-fQr"/>
+                            <constraint firstItem="9TC-pT-lF6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Czc-cZ-4wf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JLo-me-vXv" secondAttribute="trailing" id="NY6-tt-v7E"/>
-                            <constraint firstItem="un0-CU-Vfp" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="VxW-3E-WmC"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JLo-me-vXv" secondAttribute="bottom" constant="10" id="bkf-vc-VMi"/>
-                            <constraint firstItem="un0-CU-Vfp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hg7-zT-mkk"/>
+                            <constraint firstItem="9TC-pT-lF6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="emC-KB-GX7"/>
                             <constraint firstItem="JLo-me-vXv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="tGz-9h-E7z"/>
+                            <constraint firstItem="9TC-pT-lF6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="yci-Rf-ytc"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ig7-Md-1bD" appends="YES" id="vC7-H6-gVi"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="prS-Ui-T0R"/>
                     <connections>
-                        <outlet property="containerView" destination="un0-CU-Vfp" id="8Ik-a2-HzH"/>
+                        <segue destination="HXx-K7-RX5" kind="show" identifier="LookupKeywordSegue" id="gC7-DQ-XTE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ig7-Md-1bD">
+                    <connections>
+                        <action selector="handleTap:" destination="BYZ-38-t0r" id="Dd1-qc-VVB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="531" y="-4"/>
         </scene>
@@ -193,6 +245,19 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-by-Kln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2106" y="-314"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ZPi-GC-aep">
+            <objects>
+                <viewController id="g7Z-qF-wpl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3AX-fi-gHA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xeR-KX-3OZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>

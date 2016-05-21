@@ -145,10 +145,11 @@
         <!--Lookup Results-->
         <scene sceneID="rRG-ZU-cku">
             <objects>
-                <collectionViewController id="G6I-xv-WoB" userLabel="Lookup Results" sceneMemberID="viewController">
+                <collectionViewController id="G6I-xv-WoB" userLabel="Lookup Results" customClass="LookupResultsCollectionViewController" customModule="FlickrLookup" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" id="LEx-AT-hIH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Zi3-ld-KHp">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -250,6 +251,10 @@
         <scene sceneID="ZPi-GC-aep">
             <objects>
                 <viewController id="g7Z-qF-wpl" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cvE-5S-lV5"/>
+                        <viewControllerLayoutGuide type="bottom" id="6om-R8-7qq"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3AX-fi-gHA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

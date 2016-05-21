@@ -6,4 +6,19 @@
 //  Copyright © 2016 HomeSweetHome. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+class LookupResultsCollectionViewController: UICollectionViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+

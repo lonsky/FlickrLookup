@@ -56,14 +56,16 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let photo = photos[indexPath.row]
-        return photo.sizeToFillWidthOfSize(self.dynamicType.defaultThumbnailSize)
+        
+        return photo.sizeToAspectFitPhotoIntoSize(self.dynamicType.defaultThumbnailSize)
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         if flickrLookup.canRequestNextPage() {
-            let contentHeight = collectionView!.contentSize.height - collectionView!.bounds.size.height
-            if contentHeight == collectionView!.contentOffset.y {
+            let lastScreenYOffset = collectionView!.contentSize.height - collectionView!.bounds.size.height
+            if lastScreenYOffset < collectionView!.contentOffset.y {
                 flickrLookup.next()
+                NSLog("Next: lastScreenYOffset(\(lastScreenYOffset)) <= collectionView!.contentOffset.y(\(collectionView!.contentOffset.y)) ")
             }
         }
     }

@@ -13,12 +13,12 @@
 		B65597A01CF06A5500A02348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B655979F1CF06A5500A02348 /* Assets.xcassets */; };
 		B65597A31CF06A5500A02348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65597A11CF06A5500A02348 /* LaunchScreen.storyboard */; };
 		B65597AF1CF07F3700A02348 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597AE1CF07F3700A02348 /* MainViewController.swift */; };
-		B65597B11CF084BB00A02348 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B65597B01CF084BB00A02348 /* README.md */; };
 		B65597B31CF0880C00A02348 /* SearchFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B21CF0880C00A02348 /* SearchFieldViewController.swift */; };
 		B65597B71CF1DD8000A02348 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B61CF1DD8000A02348 /* Photo.swift */; };
 		B65597B91CF1EB8500A02348 /* FlickrURLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B81CF1EB8500A02348 /* FlickrURLFactory.swift */; };
 		B65597BB1CF1EEEB00A02348 /* FlickrLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */; };
 		B65597BD1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */; };
+		B65597BE1CF24FA000A02348 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B65597B01CF084BB00A02348 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +175,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B65597BE1CF24FA000A02348 /* README.md in Resources */,
 				B65597A31CF06A5500A02348 /* LaunchScreen.storyboard in Resources */,
 				B65597A01CF06A5500A02348 /* Assets.xcassets in Resources */,
 				B655979E1CF06A5500A02348 /* Main.storyboard in Resources */,
@@ -195,7 +196,6 @@
 				B65597B31CF0880C00A02348 /* SearchFieldViewController.swift in Sources */,
 				B655979B1CF06A5500A02348 /* LookupResultsCollectionViewController.swift in Sources */,
 				B65597991CF06A5500A02348 /* AppDelegate.swift in Sources */,
-				B65597B11CF084BB00A02348 /* README.md in Sources */,
 				B65597AF1CF07F3700A02348 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

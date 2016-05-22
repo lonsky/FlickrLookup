@@ -26,7 +26,7 @@ struct Photo {
         self.server = server
     }
     
-    func sizeToFillWidthOfSize(size: CGSize) -> CGSize {
+    func sizeToAspectFitPhotoIntoSize(size: CGSize) -> CGSize {
         guard let thumbnail = thumbnail else { return size }
         
         let imageSize = thumbnail.size

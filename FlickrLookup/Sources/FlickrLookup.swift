@@ -17,7 +17,7 @@ class FlickrLookup {
     private var lookupResults: ResultsHandler?
     private var currentPage: Int = 1
     private var numberOfPages: Int = 0
-    private let itemsPerPage: Int = 50
+    private let itemsPerPage: Int = 30
     
     private var dataTask: NSURLSessionDataTask?
     
@@ -80,8 +80,6 @@ class FlickrLookup {
         if !check(results["stat"] as? String) { return [] }
 
         guard let photosContainer = results["photos"] as? NSDictionary else { return [] }
-        
-        // TODO: check
         numberOfPages = photosContainer["pages"] as? Int ?? 0
         
         guard let lookupResult = photosContainer["photo"] as? [NSDictionary] else { return [] }
@@ -96,7 +94,7 @@ class FlickrLookup {
             var photo = Photo(id: id, secret: secret, farm: String(farm), server: server)
             
             // TODO: load thumbnails later
-            let photoURL = FlickrURLFactory.photoURL(photo, size: "t")
+            let photoURL = FlickrURLFactory.photoURL(photo)
             if let imageData = NSData(contentsOfURL: photoURL!) {
                 photo.thumbnail = UIImage(data: imageData)
             }

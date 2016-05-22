@@ -14,28 +14,26 @@ class MainViewController: UIViewController {
     private static let searchFieldSegueId = "EmbedSearchFieldSegue"
     private static let searchResultsSegueId = "LookupKeywordSegue"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    private var currentLookupKey: String?
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == self.dynamicType.searchFieldSegueId {
             if let searchFieldController = segue.destinationViewController as? SearchFieldViewController {
                 searchFieldController.onPerformLookup = { [weak self] lookupKey in
                     guard let localSelf = self else { return }
                     
-                    localSelf.performSegueWithIdentifier(localSelf.dynamicType.searchResultsSegueId, sender: lookupKey)
+                    localSelf.currentLookupKey = lookupKey
+                    localSelf.performSegueWithIdentifier(localSelf.dynamicType.searchResultsSegueId, sender: self)
                 }
                 searchFieldController.stringValidator = { string in
                     let stringToCheck = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     return !stringToCheck.isEmpty
                 }
+            }
+        } else if segue.identifier == self.dynamicType.searchResultsSegueId {
+            let navigationController = segue.destinationViewController as? UINavigationController
+            if let lookupController = navigationController?.topViewController as? LookupResultsCollectionViewController {
+                lookupController.lookupKey = currentLookupKey
             }
         }
     }

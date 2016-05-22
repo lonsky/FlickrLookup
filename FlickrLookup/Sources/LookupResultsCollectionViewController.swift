@@ -15,6 +15,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
 
     private var photos = [Photo]()
     private let flickrLookup = FlickrLookup()
+    private var fetchingInProgress = false
     
     var lookupKey: String?
     
@@ -24,8 +25,11 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         if let lookupKey = lookupKey {
             navigationItem.title = lookupKey
             flickrLookup.lookup(lookupKey) { [weak self] photos, error in
+                // TODO: process errors
                 self?.photos.appendContentsOf(photos)
                 self?.collectionView?.reloadData()
+                
+                self?.fetchingInProgress = false
             }
         }
     }
@@ -61,10 +65,12 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if flickrLookup.canRequestNextPage() {
+        if !fetchingInProgress && flickrLookup.canRequestNextPage() {
             let lastScreenYOffset = collectionView!.contentSize.height - collectionView!.bounds.size.height
             if lastScreenYOffset < collectionView!.contentOffset.y {
-                flickrLookup.next()
+                fetchingInProgress = flickrLookup.next()
+                
+                // TODO: remove
                 NSLog("Next: lastScreenYOffset(\(lastScreenYOffset)) <= collectionView!.contentOffset.y(\(collectionView!.contentOffset.y)) ")
             }
         }

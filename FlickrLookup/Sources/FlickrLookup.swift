@@ -30,8 +30,12 @@ class FlickrLookup {
         doLookup()
     }
     
+    func canRequestNextPage() -> Bool {
+        return (currentPage + 1) <= numberOfPages
+    }
+    
     func next() -> Bool {
-        if (currentPage + 1) > numberOfPages {
+        if !canRequestNextPage() {
             return false
         }
         
@@ -54,11 +58,13 @@ class FlickrLookup {
         if let url = FlickrURLFactory.lookupURL(lookupText ?? "", page: currentPage, itemsPerPage: itemsPerPage) {
             dataTask = NSURLSession.sharedSession().dataTaskWithURL(url) { [weak self] data, response, error in
                 let photos = self?.photos(data) ?? []
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 dispatch_async(dispatch_get_main_queue()){
                     self?.lookupResults?(photos, error)
                 }
             }
             dataTask?.resume()
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         } else {
             // TODO: create error object
             lookupResults?([], nil)
@@ -76,11 +82,7 @@ class FlickrLookup {
         guard let photosContainer = results["photos"] as? NSDictionary else { return [] }
         
         // TODO: check
-        if let pages = photosContainer["pages"] as? String {
-            numberOfPages = Int(pages) ?? 0
-        } else {
-            numberOfPages = 0
-        }
+        numberOfPages = photosContainer["pages"] as? Int ?? 0
         
         guard let lookupResult = photosContainer["photo"] as? [NSDictionary] else { return [] }
         

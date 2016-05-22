@@ -37,6 +37,8 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        // TODO: release large images
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,6 +57,15 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let photo = photos[indexPath.row]
         return photo.sizeToFillWidthOfSize(self.dynamicType.defaultThumbnailSize)
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if flickrLookup.canRequestNextPage() {
+            let contentHeight = collectionView!.contentSize.height - collectionView!.bounds.size.height
+            if contentHeight == collectionView!.contentOffset.y {
+                flickrLookup.next()
+            }
+        }
     }
 }
 

@@ -91,13 +91,13 @@ class FlickrLookup {
             let server = photoData["server"] as? String ?? ""
             let secret = photoData["secret"] as? String ?? ""
             
-            let photo = Photo(id: id, secret: secret, farm: String(farm), server: server)
+            var photo = Photo(id: id, secret: secret, farm: String(farm), server: server)
             
             // TODO: load thumbnails later
-//            let photoURL = FlickrURLFactory.photoURL(photo, size: "t")
-//            if let imageData = NSData(contentsOfURL: photoURL!) {
-//                photo.thumbnail = UIImage(data: imageData)
-//            }
+            let photoURL = FlickrURLFactory.photoURL(photo, size: "t")
+            if let imageData = NSData(contentsOfURL: photoURL!) {
+                photo.thumbnail = UIImage(data: imageData)
+            }
             
             return photo
             

@@ -18,6 +18,7 @@
 		B65597B71CF1DD8000A02348 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B61CF1DD8000A02348 /* Photo.swift */; };
 		B65597B91CF1EB8500A02348 /* FlickrURLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597B81CF1EB8500A02348 /* FlickrURLFactory.swift */; };
 		B65597BB1CF1EEEB00A02348 /* FlickrLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */; };
+		B65597BD1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		B65597B61CF1DD8000A02348 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Sources/Photo.swift; sourceTree = "<group>"; };
 		B65597B81CF1EB8500A02348 /* FlickrURLFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrURLFactory.swift; path = Sources/FlickrURLFactory.swift; sourceTree = "<group>"; };
 		B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrLookup.swift; path = Sources/FlickrLookup.swift; sourceTree = "<group>"; };
+		B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LookupResultsCollectionViewCell.swift; path = Sources/LookupResultsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				B65597AE1CF07F3700A02348 /* MainViewController.swift */,
 				B65597B21CF0880C00A02348 /* SearchFieldViewController.swift */,
 				B655979A1CF06A5500A02348 /* LookupResultsCollectionViewController.swift */,
+				B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B65597BD1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift in Sources */,
 				B65597B71CF1DD8000A02348 /* Photo.swift in Sources */,
 				B65597B91CF1EB8500A02348 /* FlickrURLFactory.swift in Sources */,
 				B65597BB1CF1EEEB00A02348 /* FlickrLookup.swift in Sources */,

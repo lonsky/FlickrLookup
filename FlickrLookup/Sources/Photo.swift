@@ -25,4 +25,22 @@ struct Photo {
         self.farm = farm
         self.server = server
     }
+    
+    func sizeToFillWidthOfSize(size: CGSize) -> CGSize {
+        guard let thumbnail = thumbnail else { return size }
+        
+        let imageSize = thumbnail.size
+        var returnSize = size
+        
+        let aspectRatio = imageSize.width / imageSize.height
+        
+        returnSize.height = returnSize.width / aspectRatio
+        
+        if returnSize.height > size.height {
+            returnSize.height = size.height
+            returnSize.width = size.height * aspectRatio
+        }
+        
+        return returnSize
+    }
 }

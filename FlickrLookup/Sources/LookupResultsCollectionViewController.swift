@@ -44,9 +44,9 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
         
-        // TODO: release large images
+        // release large images
+        photos.forEach { $0.photo = nil }
         
         // release invisible thumbnails
         guard let visibleIndexPaths = collectionView?.indexPathsForVisibleItems() where visibleIndexPaths.count > 0 else { return }

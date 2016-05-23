@@ -15,7 +15,10 @@ class LookupResultsCollectionViewController: UICollectionViewController {
 
     private var photos = [Photo]()
     private let flickrLookup = FlickrLookup()
+    private let flickrPhotosLoader = FlickrPhotosLoader()
     private var fetchingInProgress = false
+    
+    private let placeholderImage = UIImage(named: "placeholder")!
     
     var lookupKey: String?
     
@@ -36,6 +39,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         flickrLookup.cancel()
+        flickrPhotosLoader.cancelAllLoads()
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,6 +47,21 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
         
         // TODO: release large images
+        
+        // release invisible thumbnails
+        guard let visibleIndexPaths = collectionView?.indexPathsForVisibleItems() where visibleIndexPaths.count > 0 else { return }
+        
+        let firstIndexPath = visibleIndexPaths.first!
+        let lastIndexPath = visibleIndexPaths.last!
+
+        
+        for index in 0..<firstIndexPath.row {
+            photos[index].thumbnail = nil
+        }
+
+        for index in lastIndexPath.row..<photos.count {
+            photos[index].thumbnail = nil
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -53,15 +72,29 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrPhotoIdentifier", forIndexPath: indexPath) as! LookupResultsCollectionViewCell
         
         let photo = photos[indexPath.row]
-        cell.lookupImage = photo.thumbnail
+        cell.lookupImage = photo.thumbnail ?? placeholderImage
+        
+        if photo.thumbnail == nil {
+            flickrPhotosLoader.loadThumbnail(photo) { successfully in
+                if successfully {
+                    collectionView.reloadItemsAtIndexPaths([indexPath])
+                }
+            }
+        }
         
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let photo = photos[indexPath.row]
-        
-        return photo.sizeToAspectFitPhotoIntoSize(self.dynamicType.defaultThumbnailSize)
+
+        if let thumbnailSize = photo.thumbnailSize {
+            return thumbnailSize
+        } else if photo.thumbnail != nil {
+            return photo.sizeToAspectFitPhotoIntoSize(self.dynamicType.defaultThumbnailSize)
+        }
+
+        return placeholderImage.size
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -69,9 +102,6 @@ class LookupResultsCollectionViewController: UICollectionViewController {
             let lastScreenYOffset = collectionView!.contentSize.height - collectionView!.bounds.size.height
             if lastScreenYOffset < collectionView!.contentOffset.y {
                 fetchingInProgress = flickrLookup.next()
-                
-                // TODO: remove
-                NSLog("Next: lastScreenYOffset(\(lastScreenYOffset)) <= collectionView!.contentOffset.y(\(collectionView!.contentOffset.y)) ")
             }
         }
     }

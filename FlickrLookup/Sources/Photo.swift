@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 
-struct Photo {
+class Photo: NSObject {
     var thumbnail: UIImage?
+    var thumbnailSize: CGSize?
     var photo: UIImage?
 
     let farm: String
@@ -40,6 +41,8 @@ struct Photo {
             returnSize.height = size.height
             returnSize.width = size.height * aspectRatio
         }
+        
+        thumbnailSize = returnSize
         
         return returnSize
     }

@@ -182,6 +182,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="lookupImageView" destination="Qvl-CI-XaV" id="k2P-a1-4Py"/>
+                                    <segue destination="aI5-JZ-erN" kind="show" identifier="ShowBigPhotoSegueId" id="71u-Zc-niN"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -201,6 +202,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvS-by-Kln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2106" y="-314"/>
+        </scene>
+        <!--Lookup Fullscreen Photo View Controller-->
+        <scene sceneID="7ea-m4-nPM">
+            <objects>
+                <viewController id="aI5-JZ-erN" customClass="LookupFullscreenPhotoViewController" customModule="FlickrLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kp1-19-3iN"/>
+                        <viewControllerLayoutGuide type="bottom" id="5g6-mu-lXA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jer-q3-RxE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OF2-Bb-tF4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OF2-Bb-tF4" secondAttribute="trailing" id="DUb-FT-OxL"/>
+                            <constraint firstItem="OF2-Bb-tF4" firstAttribute="leading" secondItem="Jer-q3-RxE" secondAttribute="leading" id="JrA-Qx-hTR"/>
+                            <constraint firstItem="OF2-Bb-tF4" firstAttribute="top" secondItem="Jer-q3-RxE" secondAttribute="top" id="Rvy-UA-xPH"/>
+                            <constraint firstItem="5g6-mu-lXA" firstAttribute="top" secondItem="OF2-Bb-tF4" secondAttribute="bottom" id="g2C-3i-Kuk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoImageView" destination="OF2-Bb-tF4" id="p8X-3d-Nju"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fi2-qb-ZBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2276" y="465"/>
         </scene>
     </scenes>
     <resources>

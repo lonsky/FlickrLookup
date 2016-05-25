@@ -44,8 +44,24 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        flickrLookup.cancel()
-        flickrPhotosLoader.cancelAllLoads()
+        if segue.identifier == "ShowBigPhotoSegueId" {
+            guard let cell = sender as? UICollectionViewCell else { return }
+            guard let photoViewController = segue.destinationViewController as? LookupFullscreenPhotoViewController else { return }
+            
+            photoViewController.photo = photos[cell.tag]
+            photoViewController.flickrPhotosLoader = flickrPhotosLoader
+            
+        } else {
+            flickrLookup.cancel()
+            flickrPhotosLoader.cancelAllLoads()
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        cellSizeCache = nil
+        collectionView?.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,6 +86,9 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         }
     }
     
+    
+    // MARK: - UICollectionViewDataSource / UICollectionViewDelegate
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
@@ -79,6 +98,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         
         let photo = photos[indexPath.row]
         cell.lookupImage = photo.thumbnail ?? placeholderImage
+        cell.tag = indexPath.row
         
         if photo.thumbnail == nil {
             flickrPhotosLoader.loadThumbnail(photo) { successfully in
@@ -103,15 +123,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     }
     
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        cellSizeCache = nil
-        collectionView?.reloadData()
-    }
-
-    
-    // MARK: UICollectionViewDelegateFlowLayout
+    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         if let cellSizeCache = cellSizeCache {

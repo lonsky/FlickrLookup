@@ -40,9 +40,9 @@ class FlickrPhotosLoader {
     func load(photo: Photo, completion: ComletionHandler) {
         photosLoaderOperationQueue.addOperationWithBlock() {
             var result = false
-            let photoURL = FlickrURLFactory.photoURL(photo, size: "l")
+            let photoURL = FlickrURLFactory.photoURL(photo, size: "b")
             if let imageData = NSData(contentsOfURL: photoURL!) {
-                photo.thumbnail = UIImage(data: imageData)
+                photo.photo = UIImage(data: imageData)
                 result = true
             }
             

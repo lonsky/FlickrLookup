@@ -20,16 +20,13 @@ class FlickrPhotosLoader {
         if thumbnailsQueue.indexOf(photo) == nil {
             thumbnailsQueue.insert(photo)
             photosLoaderOperationQueue.addOperationWithBlock() { [weak self] in
-                var result = false
-                let photoURL = FlickrURLFactory.photoURL(photo)
-                if let imageData = NSData(contentsOfURL: photoURL!) {
-                    photo.thumbnail = UIImage(data: imageData)
-                    result = true
-                }
+                
+                photo.thumbnail = self?.internalLoad(photo)
+
                 self?.thumbnailsQueue.remove(photo)
                 
                 dispatch_async(dispatch_get_main_queue()) {
-                    completion(successfully: result)
+                    completion(successfully: photo.thumbnail != nil)
                 }
             }
         } else {
@@ -38,18 +35,22 @@ class FlickrPhotosLoader {
     }
 
     func load(photo: Photo, completion: ComletionHandler) {
-        photosLoaderOperationQueue.addOperationWithBlock() {
-            var result = false
-            let photoURL = FlickrURLFactory.photoURL(photo, size: "b")
-            if let imageData = NSData(contentsOfURL: photoURL!) {
-                photo.photo = UIImage(data: imageData)
-                result = true
-            }
+        photosLoaderOperationQueue.addOperationWithBlock() { [weak self] in
+            photo.photo = self?.internalLoad(photo, bigSize: true)
             
             dispatch_async(dispatch_get_main_queue()) {
-                completion(successfully: result)
+                completion(successfully: photo.photo != nil)
             }
         }
+    }
+    
+    private func internalLoad(photo: Photo, bigSize big: Bool = false) -> UIImage? {
+        let size = big ? "b" : "m"
+        let photoURL = FlickrURLFactory.photoURL(photo, size: size)
+        if let imageData = NSData(contentsOfURL: photoURL!) {
+            return UIImage(data: imageData)
+        }
+        return nil
     }
     
     func cancelAllLoads() {

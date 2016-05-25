@@ -32,10 +32,12 @@ class LookupFullscreenPhotoViewController: UIViewController {
         if photo.photo != nil {
             photoImageView.image = photo.photo
         } else {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             flickrPhotosLoader?.load(photo) { [weak self] successfully in
                 if successfully {
                     self?.photoImageView.image = photo.photo
                 }
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
     }

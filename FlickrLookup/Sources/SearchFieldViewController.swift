@@ -14,13 +14,6 @@ class SearchFieldViewController: UIViewController, UITextFieldDelegate {
     var onPerformLookup: ((String) -> Void)?
     var stringValidator: ((String) -> Bool)?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.layer.cornerRadius = 5.0
-        view.layer.masksToBounds = true
-    }
-    
     private func keywordEditingDidFinish() {
         let lookupString = lookupTextField.text ?? ""
         if let stringValidator = stringValidator where stringValidator(lookupString) == false {

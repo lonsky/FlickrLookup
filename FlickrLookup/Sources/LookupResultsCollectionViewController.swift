@@ -11,28 +11,35 @@ import UIKit
 
 class LookupResultsCollectionViewController: UICollectionViewController {
     
+    private static let cellId = "FlickrPhotoIdentifier"
+    
     private var photos = [Photo]()
     private let flickrLookup = FlickrLookup()
     private let flickrPhotosLoader = FlickrPhotosLoader()
+    
     private var fetchingInProgress = false
     private var cellSizeCache: CGSize?
     
     private let placeholderImage = UIImage(named: "placeholder")!
     
-    var lookupKey: String?
+    var lookupKey: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard let lookupKey = lookupKey else { fatalError("lookupKey key shouldn't be nil") }
         
-        if let lookupKey = lookupKey {
-            navigationItem.title = lookupKey
-            flickrLookup.lookup(lookupKey) { [weak self] photos, error in
-                // TODO: process errors
+        navigationItem.title = lookupKey
+        
+        flickrLookup.lookup(lookupKey) { [weak self] photos, error in
+            if error == nil {
                 self?.photos.appendContentsOf(photos)
                 self?.collectionView?.reloadData()
-                
-                self?.fetchingInProgress = false
+            } else {
+                // TODO: process errors
             }
+            
+            self?.fetchingInProgress = false
         }
     }
     
@@ -64,11 +71,11 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count ?? 0
+        return photos.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrPhotoIdentifier", forIndexPath: indexPath) as! LookupResultsCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.dynamicType.cellId, forIndexPath: indexPath) as! LookupResultsCollectionViewCell
         
         let photo = photos[indexPath.row]
         cell.lookupImage = photo.thumbnail ?? placeholderImage
@@ -91,6 +98,8 @@ class LookupResultsCollectionViewController: UICollectionViewController {
                 fetchingInProgress = flickrLookup.next()
             }
         }
+        
+        // TODO: it's possible to do cleaning of thumbnails here to reduce memory fingerprint
     }
     
     

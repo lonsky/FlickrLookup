@@ -6,13 +6,11 @@
 //  Copyright © 2016 HomeSweetHome. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 
 class Photo: NSObject {
     var thumbnail: UIImage?
-    var thumbnailSize: CGSize?
     var photo: UIImage?
 
     let farm: String
@@ -25,25 +23,5 @@ class Photo: NSObject {
         self.secret = secret
         self.farm = farm
         self.server = server
-    }
-    
-    func sizeToAspectFitPhotoIntoSize(size: CGSize) -> CGSize {
-        guard let thumbnail = thumbnail else { return size }
-        
-        let imageSize = thumbnail.size
-        var returnSize = size
-        
-        let aspectRatio = imageSize.width / imageSize.height
-        
-        returnSize.height = returnSize.width / aspectRatio
-        
-        if returnSize.height > size.height {
-            returnSize.height = size.height
-            returnSize.width = size.height * aspectRatio
-        }
-        
-        thumbnailSize = returnSize
-        
-        return returnSize
     }
 }

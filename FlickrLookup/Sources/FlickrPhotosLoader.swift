@@ -6,15 +6,17 @@
 //  Copyright © 2016 HomeSweetHome. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 
 class FlickrPhotosLoader {
+    
+    typealias ComletionHandler = ((successfully: Bool) -> Void)
+    
     private let photosLoaderOperationQueue = NSOperationQueue()
     private var thumbnailsQueue = Set<Photo>()
     
-    func loadThumbnail(photo: Photo, completion:((successfully: Bool) -> Void)) {
+    func loadThumbnail(photo: Photo, completion: ComletionHandler) {
         if thumbnailsQueue.indexOf(photo) == nil {
             thumbnailsQueue.insert(photo)
             photosLoaderOperationQueue.addOperationWithBlock() { [weak self] in
@@ -32,6 +34,21 @@ class FlickrPhotosLoader {
             }
         } else {
             completion(successfully: false)
+        }
+    }
+
+    func load(photo: Photo, completion: ComletionHandler) {
+        photosLoaderOperationQueue.addOperationWithBlock() {
+            var result = false
+            let photoURL = FlickrURLFactory.photoURL(photo, size: "l")
+            if let imageData = NSData(contentsOfURL: photoURL!) {
+                photo.thumbnail = UIImage(data: imageData)
+                result = true
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(successfully: result)
+            }
         }
     }
     

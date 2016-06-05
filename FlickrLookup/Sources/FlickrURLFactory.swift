@@ -19,6 +19,10 @@ class FlickrURLFactory {
     }
 
     class func photoURL(photo: Photo, size: String = "m") -> NSURL? {
-        return NSURL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(size).jpg")!
+        return NSURL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(size).jpg")
+    }
+    
+    class func photoInfoURL(photo: Photo) -> NSURL? {
+        return NSURL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=\(apiKey)&photo_id=\(photo.id)&secret=\(photo.secret)&format=json&nojsoncallback=1")
     }
 }

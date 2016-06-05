@@ -14,7 +14,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     private static let cellId = "FlickrPhotoIdentifier"
     
     private var photos = [Photo]()
-    private let flickrLookup = FlickrLookup()
+    private let flickrLookup = FlickrLookup(parser: FlickrDataParserJSON())
     private let flickrPhotosLoader = FlickrPhotosLoader()
     
     private var fetchingInProgress = false

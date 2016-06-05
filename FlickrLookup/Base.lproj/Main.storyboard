@@ -206,7 +206,7 @@
         <!--Lookup Fullscreen Photo View Controller-->
         <scene sceneID="7ea-m4-nPM">
             <objects>
-                <viewController id="aI5-JZ-erN" customClass="LookupFullscreenPhotoViewController" customModule="FlickrLookup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="aI5-JZ-erN" customClass="LookupFullscreenPhotoViewController" customModule="FlickrLookup" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kp1-19-3iN"/>
                         <viewControllerLayoutGuide type="bottom" id="5g6-mu-lXA"/>
@@ -215,21 +215,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OF2-Bb-tF4">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEq-1K-n7Z">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="OF2-Bb-tF4" userLabel="ImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="75"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q32-Qi-dY0">
+                                        <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="q32-Qi-dY0" firstAttribute="centerX" secondItem="DEq-1K-n7Z" secondAttribute="centerX" id="KxY-1m-tDO"/>
+                                    <constraint firstAttribute="bottom" secondItem="OF2-Bb-tF4" secondAttribute="bottom" id="Qmh-ji-7S8"/>
+                                    <constraint firstItem="q32-Qi-dY0" firstAttribute="centerY" secondItem="DEq-1K-n7Z" secondAttribute="centerY" id="WbO-bg-DJx"/>
+                                    <constraint firstItem="OF2-Bb-tF4" firstAttribute="leading" secondItem="DEq-1K-n7Z" secondAttribute="leading" id="bFz-cP-tyO"/>
+                                    <constraint firstAttribute="trailing" secondItem="OF2-Bb-tF4" secondAttribute="trailing" id="gu4-fD-QjY"/>
+                                    <constraint firstItem="OF2-Bb-tF4" firstAttribute="top" secondItem="DEq-1K-n7Z" secondAttribute="top" id="s0B-6q-6RR"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="aI5-JZ-erN" id="CfC-p9-Ln3"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="OF2-Bb-tF4" secondAttribute="trailing" id="DUb-FT-OxL"/>
-                            <constraint firstItem="OF2-Bb-tF4" firstAttribute="leading" secondItem="Jer-q3-RxE" secondAttribute="leading" id="JrA-Qx-hTR"/>
-                            <constraint firstItem="OF2-Bb-tF4" firstAttribute="top" secondItem="Jer-q3-RxE" secondAttribute="top" id="Rvy-UA-xPH"/>
-                            <constraint firstItem="5g6-mu-lXA" firstAttribute="top" secondItem="OF2-Bb-tF4" secondAttribute="bottom" id="g2C-3i-Kuk"/>
+                            <constraint firstAttribute="bottom" secondItem="DEq-1K-n7Z" secondAttribute="bottom" id="6qh-F6-PBq"/>
+                            <constraint firstItem="DEq-1K-n7Z" firstAttribute="leading" secondItem="Jer-q3-RxE" secondAttribute="leading" id="8RQ-V5-tyP"/>
+                            <constraint firstAttribute="trailing" secondItem="DEq-1K-n7Z" secondAttribute="trailing" id="BMh-3d-Nex"/>
+                            <constraint firstItem="DEq-1K-n7Z" firstAttribute="top" secondItem="Jer-q3-RxE" secondAttribute="top" id="oa7-vq-K1H"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="photoImageView" destination="OF2-Bb-tF4" id="p8X-3d-Nju"/>
+                        <outlet property="activityIndicator" destination="q32-Qi-dY0" id="SzY-XY-j8Z"/>
+                        <outlet property="imageViewBottomConstraint" destination="Qmh-ji-7S8" id="oGG-u3-t2G"/>
+                        <outlet property="imageViewLeadingConstraint" destination="bFz-cP-tyO" id="e2M-TO-GJa"/>
+                        <outlet property="imageViewTopConstraint" destination="s0B-6q-6RR" id="15Q-pr-mgm"/>
+                        <outlet property="imageViewTrailingConstraint" destination="gu4-fD-QjY" id="4ie-wg-fHa"/>
+                        <outlet property="photoImageView" destination="OF2-Bb-tF4" id="4cv-Vx-6zs"/>
+                        <outlet property="scrollView" destination="DEq-1K-n7Z" id="Drd-YV-8KD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fi2-qb-ZBG" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -37,9 +37,7 @@ class LookupFullscreenPhotoViewController: UIViewController {
 
         guard let photo = photo else { return }
         if photo.photo != nil {
-            photoImageView.image = photo.photo
-            photoImageView.hidden = false
-            photoImageView.sizeToFit()
+            applyPhoto(photo)
         } else {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             activityIndicator.hidden = false
@@ -47,9 +45,7 @@ class LookupFullscreenPhotoViewController: UIViewController {
             flickrPhotosLoader?.load(photo) { [weak self] successfully in
                 self?.activityIndicator.stopAnimating()
                 if successfully {
-                    self?.photoImageView.image = photo.photo
-                    self?.photoImageView.hidden = false
-                    self?.photoImageView.sizeToFit()
+                    self?.applyPhoto(photo)
                 } else {
                     //TODO: show message
                 }
@@ -88,6 +84,16 @@ class LookupFullscreenPhotoViewController: UIViewController {
         imageViewTrailingConstraint.constant = xOffset
         
         view.layoutIfNeeded()
+    }
+    
+
+    //MARK: - Helpers
+    
+    private func applyPhoto(photo: Photo) {
+        photoImageView.image = photo.photo
+        photoImageView.hidden = false
+        photoImageView.sizeToFit()
+        navigationItem.title = photo.photoInfo?.title
     }
 }
 

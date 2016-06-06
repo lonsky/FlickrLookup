@@ -15,6 +15,12 @@ class FlickrPhotosLoader {
     
     private let photosLoaderOperationQueue = NSOperationQueue()
     private var thumbnailsQueue = Set<Photo>()
+
+    private let parser: FlickrDataParser
+    
+    init(parser: FlickrDataParser) {
+        self.parser = parser
+    }
     
     func loadThumbnail(photo: Photo, completion: ComletionHandler) {
         if thumbnailsQueue.indexOf(photo) == nil {
@@ -35,13 +41,26 @@ class FlickrPhotosLoader {
     }
 
     func load(photo: Photo, completion: ComletionHandler) {
-        photosLoaderOperationQueue.addOperationWithBlock() { [weak self] in
+        let downloadPhotoOperation = NSBlockOperation { [ weak self] in
             photo.photo = self?.internalLoad(photo, bigSize: true)
+        }
+        downloadPhotoOperation.queuePriority = .High
+        let downloadPhotoInfoOperation = NSBlockOperation { [ weak self] in
             
+            guard let url = FlickrURLFactory.photoInfoURL(photo) else { return }
+            guard let photoData = NSData(contentsOfURL: url) else { return }
+            
+            photo.photoInfo = self?.parser.parsePhotoInfo(photoData)
+
             dispatch_async(dispatch_get_main_queue()) {
                 completion(successfully: photo.photo != nil)
             }
         }
+        downloadPhotoInfoOperation.queuePriority = .High
+        
+        downloadPhotoInfoOperation.addDependency(downloadPhotoOperation)
+        
+        photosLoaderOperationQueue.addOperations([downloadPhotoOperation, downloadPhotoInfoOperation], waitUntilFinished: false)
     }
     
     private func internalLoad(photo: Photo, bigSize big: Bool = false) -> UIImage? {

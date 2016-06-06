@@ -12,7 +12,8 @@ import UIKit
 class Photo: NSObject {
     var thumbnail: UIImage?
     var photo: UIImage?
-
+    var photoInfo: PhotoInfo?
+    
     let farm: String
     let server: String
     let id: String

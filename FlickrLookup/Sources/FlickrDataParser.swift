@@ -11,4 +11,5 @@ import Foundation
 
 protocol FlickrDataParser {
     func parsePhotosLookupResults(data: NSData) -> (photos: [Photo], numberOfPages: Int)?
+    func parsePhotoInfo(data: NSData) -> PhotoInfo?
 }

@@ -14,8 +14,8 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     private static let cellId = "FlickrPhotoIdentifier"
     
     private var photos = [Photo]()
-    private let flickrLookup = FlickrLookup(parser: FlickrDataParserJSON())
-    private let flickrPhotosLoader = FlickrPhotosLoader()
+    private var flickrLookup: FlickrLookup!
+    private var flickrPhotosLoader: FlickrPhotosLoader!
     
     private var fetchingInProgress = false
     private var cellSizeCache: CGSize?
@@ -30,6 +30,10 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         guard let lookupKey = lookupKey else { fatalError("lookupKey key shouldn't be nil") }
         
         navigationItem.title = lookupKey
+
+        let parser = FlickrDataParserJSON()
+        flickrLookup = FlickrLookup(parser: parser)
+        flickrPhotosLoader = FlickrPhotosLoader(parser: parser)
         
         flickrLookup.lookup(lookupKey) { [weak self] photos, error in
             if error == nil {

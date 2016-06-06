@@ -247,8 +247,7 @@
                             <constraint firstItem="DEq-1K-n7Z" firstAttribute="top" secondItem="Jer-q3-RxE" secondAttribute="top" id="oa7-vq-K1H"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="UKQ-YX-Y0g"/>
                     <connections>
                         <outlet property="activityIndicator" destination="q32-Qi-dY0" id="SzY-XY-j8Z"/>
                         <outlet property="imageViewBottomConstraint" destination="Qmh-ji-7S8" id="oGG-u3-t2G"/>

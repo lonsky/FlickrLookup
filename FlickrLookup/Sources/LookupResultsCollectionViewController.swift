@@ -14,7 +14,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     private static let cellId = "FlickrPhotoIdentifier"
     
     private var photos = [Photo]()
-    private var flickrLookup: FlickrLookup!
+    private var flickrLookup: FlickrPagingLookup!
     private var flickrPhotosLoader: FlickrDataLoader!
     
     private var fetchingInProgress = false
@@ -32,8 +32,8 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         navigationItem.title = lookupKey
 
         let parser = FlickrDataParserJSON()
-        flickrLookup = FlickrLookup(parser: parser)
         flickrPhotosLoader = FlickrDataLoader(parser: parser)
+        flickrLookup = FlickrPagingLookup(dataLoader: flickrPhotosLoader)
         
         flickrLookup.lookup(lookupKey) { [weak self] photos, error in
             if error == nil {
@@ -116,7 +116,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if !fetchingInProgress && flickrLookup.canRequestNextPage() {
+        if !fetchingInProgress {
             let lastScreenYOffset = collectionView!.contentSize.height - 2.0 * collectionView!.bounds.size.height
             if lastScreenYOffset < collectionView!.contentOffset.y {
                 fetchingInProgress = flickrLookup.next()

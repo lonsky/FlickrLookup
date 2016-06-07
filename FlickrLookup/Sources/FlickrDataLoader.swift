@@ -11,9 +11,9 @@ import UIKit
 
 class FlickrDataLoader {
     
-    typealias ComletionHandler = ((successfully: Bool) -> Void)
+    typealias ComletionHandler = ((success: Bool) -> Void)
     
-    private let photosLoaderOperationQueue = NSOperationQueue()
+    private let dataLoaderOperationQueue = NSOperationQueue()
     private var thumbnailsQueue = Set<Photo>()
 
     private let parser: FlickrDataParser
@@ -25,18 +25,18 @@ class FlickrDataLoader {
     func loadThumbnail(photo: Photo, completion: ComletionHandler) {
         if thumbnailsQueue.indexOf(photo) == nil {
             thumbnailsQueue.insert(photo)
-            photosLoaderOperationQueue.addOperationWithBlock() { [weak self] in
+            dataLoaderOperationQueue.addOperationWithBlock() { [weak self] in
                 
                 photo.thumbnail = self?.internalLoad(photo)
 
                 self?.thumbnailsQueue.remove(photo)
                 
                 dispatch_async(dispatch_get_main_queue()) {
-                    completion(successfully: photo.thumbnail != nil)
+                    completion(success: photo.thumbnail != nil)
                 }
             }
         } else {
-            completion(successfully: false)
+            completion(success: false)
         }
     }
 
@@ -53,16 +53,42 @@ class FlickrDataLoader {
             photo.photoInfo = self?.parser.parsePhotoInfo(photoData)
 
             dispatch_async(dispatch_get_main_queue()) {
-                completion(successfully: photo.photo != nil)
+                completion(success: photo.photo != nil)
             }
         }
         downloadPhotoInfoOperation.queuePriority = .High
         
         downloadPhotoInfoOperation.addDependency(downloadPhotoOperation)
         
-        photosLoaderOperationQueue.addOperations([downloadPhotoOperation, downloadPhotoInfoOperation], waitUntilFinished: false)
+        dataLoaderOperationQueue.addOperations([downloadPhotoOperation, downloadPhotoInfoOperation], waitUntilFinished: false)
     }
     
+    func searchPhotos(text: String, page: Int, itemsPerPage: Int, completion: (([Photo]?, numberOfPages: Int) -> Void)) {
+        guard let url = FlickrURLFactory.lookupURL(text, page: page, itemsPerPage: itemsPerPage) else {
+            completion(nil, numberOfPages: 0)
+            return
+        }
+            
+        dataLoaderOperationQueue.addOperationWithBlock { [weak self] in
+            guard let searchResults = NSData(contentsOfURL: url),
+                let parserResults = self?.parser.parsePhotosLookupResults(searchResults) else {
+                dispatch_async(dispatch_get_main_queue()){
+                    completion(nil, numberOfPages: 0)
+                }
+                return
+            }
+            
+            dispatch_async(dispatch_get_main_queue()){
+                completion(parserResults.photos, numberOfPages: parserResults.numberOfPages)
+            }
+        }
+    }
+    
+    func cancelAllLoads() {
+        dataLoaderOperationQueue.cancelAllOperations()
+        thumbnailsQueue.removeAll()
+    }
+
     private func internalLoad(photo: Photo, bigSize big: Bool = false) -> UIImage? {
         let size = big ? "b" : "m"
         let photoURL = FlickrURLFactory.photoURL(photo, size: size)
@@ -70,10 +96,5 @@ class FlickrDataLoader {
             return UIImage(data: imageData)
         }
         return nil
-    }
-    
-    func cancelAllLoads() {
-        photosLoaderOperationQueue.cancelAllOperations()
-        thumbnailsQueue.removeAll()
     }
 }

@@ -19,7 +19,7 @@
 		B65597BB1CF1EEEB00A02348 /* FlickrLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */; };
 		B65597BD1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */; };
 		B65597BE1CF24FA000A02348 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B65597B01CF084BB00A02348 /* README.md */; };
-		B65597C01CF397A600A02348 /* FlickrPhotosLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BF1CF397A600A02348 /* FlickrPhotosLoader.swift */; };
+		B65597C01CF397A600A02348 /* FlickrDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597BF1CF397A600A02348 /* FlickrDataLoader.swift */; };
 		B65597C41CF6467C00A02348 /* LookupFullscreenPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65597C31CF6467C00A02348 /* LookupFullscreenPhotoViewController.swift */; };
 		B6D38AF51D061D990019B534 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D38AF41D061D990019B534 /* PhotoInfo.swift */; };
 		B6E8BB6A1CF9F50B00489F15 /* FlickrDataParserJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E8BB691CF9F50B00489F15 /* FlickrDataParserJSON.swift */; };
@@ -41,7 +41,7 @@
 		B65597B81CF1EB8500A02348 /* FlickrURLFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrURLFactory.swift; path = Sources/FlickrURLFactory.swift; sourceTree = "<group>"; };
 		B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrLookup.swift; path = Sources/FlickrLookup.swift; sourceTree = "<group>"; };
 		B65597BC1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LookupResultsCollectionViewCell.swift; path = Sources/LookupResultsCollectionViewCell.swift; sourceTree = "<group>"; };
-		B65597BF1CF397A600A02348 /* FlickrPhotosLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrPhotosLoader.swift; path = Sources/FlickrPhotosLoader.swift; sourceTree = "<group>"; };
+		B65597BF1CF397A600A02348 /* FlickrDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrDataLoader.swift; path = Sources/FlickrDataLoader.swift; sourceTree = "<group>"; };
 		B65597C31CF6467C00A02348 /* LookupFullscreenPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LookupFullscreenPhotoViewController.swift; path = Sources/LookupFullscreenPhotoViewController.swift; sourceTree = "<group>"; };
 		B6D38AF41D061D990019B534 /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoInfo.swift; path = Sources/PhotoInfo.swift; sourceTree = "<group>"; };
 		B6E8BB691CF9F50B00489F15 /* FlickrDataParserJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrDataParserJSON.swift; path = Sources/FlickrDataParserJSON.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			children = (
 				B65597B81CF1EB8500A02348 /* FlickrURLFactory.swift */,
 				B65597BA1CF1EEEB00A02348 /* FlickrLookup.swift */,
-				B65597BF1CF397A600A02348 /* FlickrPhotosLoader.swift */,
+				B65597BF1CF397A600A02348 /* FlickrDataLoader.swift */,
 				B6E8BB6B1D03E1C800489F15 /* Parser */,
 			);
 			name = FlickrService;
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B65597C01CF397A600A02348 /* FlickrPhotosLoader.swift in Sources */,
+				B65597C01CF397A600A02348 /* FlickrDataLoader.swift in Sources */,
 				B6E8BB6D1D03E20900489F15 /* FlickrDataParser.swift in Sources */,
 				B65597BD1CF23CA400A02348 /* LookupResultsCollectionViewCell.swift in Sources */,
 				B65597B71CF1DD8000A02348 /* Photo.swift in Sources */,

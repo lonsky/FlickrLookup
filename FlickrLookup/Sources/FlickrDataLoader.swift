@@ -1,5 +1,5 @@
 //
-//  FlickrPhotosLoader.swift
+//  FlickrDataLoader.swift
 //  FlickrLookup
 //
 //  Created by Alexander Lonsky on 5/23/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class FlickrPhotosLoader {
+class FlickrDataLoader {
     
     typealias ComletionHandler = ((successfully: Bool) -> Void)
     

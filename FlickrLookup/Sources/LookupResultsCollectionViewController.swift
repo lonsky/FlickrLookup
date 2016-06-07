@@ -15,7 +15,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     
     private var photos = [Photo]()
     private var flickrLookup: FlickrLookup!
-    private var flickrPhotosLoader: FlickrPhotosLoader!
+    private var flickrPhotosLoader: FlickrDataLoader!
     
     private var fetchingInProgress = false
     private var cellSizeCache: CGSize?
@@ -33,7 +33,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
 
         let parser = FlickrDataParserJSON()
         flickrLookup = FlickrLookup(parser: parser)
-        flickrPhotosLoader = FlickrPhotosLoader(parser: parser)
+        flickrPhotosLoader = FlickrDataLoader(parser: parser)
         
         flickrLookup.lookup(lookupKey) { [weak self] photos, error in
             if error == nil {

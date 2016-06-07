@@ -20,7 +20,7 @@ class LookupFullscreenPhotoViewController: UIViewController {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     var photo: Photo?
-    var flickrPhotosLoader: FlickrPhotosLoader?
+    var flickrPhotosLoader: FlickrDataLoader?
     
     init(photo: Photo) {
         self.photo = photo

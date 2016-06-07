@@ -14,6 +14,15 @@ struct PhotoInfo {
     let title: String?
     let takenDate: String?
     let postedDate: String?
-    
     //TODO: additional photo info
+    
+    var author: String {
+        if let ownerRealName = ownerRealName {
+            return ownerRealName
+        } else if let ownerUserName = ownerUserName {
+            return ownerUserName
+        } else {
+            return "Unknown author"
+        }
+    }
 }

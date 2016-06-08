@@ -131,7 +131,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qLc-JU-y4C">
             <objects>
-                <navigationController hidesBarsOnSwipe="YES" id="HXx-K7-RX5" sceneMemberID="viewController">
+                <navigationController id="HXx-K7-RX5" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ePp-jn-2T5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -242,7 +242,7 @@
                                 <rect key="frame" x="0.0" y="570" width="600" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xu-Ww-l8I">
-                                        <rect key="frame" x="559" y="8.5" width="31" height="14.5"/>
+                                        <rect key="frame" x="559" y="8" width="31" height="15"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

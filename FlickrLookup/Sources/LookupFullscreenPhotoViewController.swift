@@ -117,7 +117,7 @@ class LookupFullscreenPhotoViewController: UIViewController {
         let minScale = min(widthScale, heightScale)
         
         scrollView.minimumZoomScale = minScale
-        
+        scrollView.maximumZoomScale = 1.5
         scrollView.zoomScale = minScale
     }
     

@@ -11,7 +11,7 @@ import UIKit
 
 class FlickrDataLoader {
     
-    typealias ComletionHandler = ((success: Bool) -> Void)
+    typealias ComletionHandler = ((success: Bool, error: NSError?) -> Void)
     
     private let dataLoaderOperationQueue = NSOperationQueue()
     private var thumbnailsQueue = Set<Photo>()
@@ -32,11 +32,13 @@ class FlickrDataLoader {
                 self?.thumbnailsQueue.remove(photo)
                 
                 dispatch_async(dispatch_get_main_queue()) {
-                    completion(success: photo.thumbnail != nil)
+                    //TODO: error description if any
+                    completion(success: photo.thumbnail != nil, error: nil)
                 }
             }
         } else {
-            completion(success: false)
+            //TODO: error description
+            completion(success: false, error: nil)
         }
     }
 
@@ -53,7 +55,8 @@ class FlickrDataLoader {
             photo.photoInfo = self?.parser.parsePhotoInfo(photoData)
 
             dispatch_async(dispatch_get_main_queue()) {
-                completion(success: photo.photo != nil)
+                //TODO: error description if any
+                completion(success: photo.photo != nil, error: nil)
             }
         }
         downloadPhotoInfoOperation.queuePriority = .High
@@ -73,6 +76,7 @@ class FlickrDataLoader {
             guard let searchResults = NSData(contentsOfURL: url),
                 let parserResults = self?.parser.parsePhotosLookupResults(searchResults) else {
                 dispatch_async(dispatch_get_main_queue()){
+                    //TODO: error description
                     completion(photos: nil, numberOfPages: 0, error: nil)
                 }
                 return

@@ -46,12 +46,19 @@ class LookupFullscreenPhotoViewController: UIViewController {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             activityIndicator.hidden = false
             activityIndicator.startAnimating()
-            flickrPhotosLoader?.load(photo) { [weak self] successfully in
+            flickrPhotosLoader?.load(photo) { [weak self] success, error in
                 self?.activityIndicator.stopAnimating()
-                if successfully {
+                if success {
                     self?.applyPhoto(photo)
                 } else {
-                    //TODO: show message
+                    //TODO: process error
+                    let message = "Can't load photo. Something went wrong :( Please try again."
+                    let alertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
+                    let action = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+                    alertController.addAction(action)
+                    self?.presentViewController(alertController, animated: true) {
+                        self?.dismissViewControllerAnimated(true, completion: nil)
+                    }
                 }
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
@@ -135,7 +142,7 @@ class LookupFullscreenPhotoViewController: UIViewController {
         photoImageView.hidden = false
         photoImageView.sizeToFit()
         navigationItem.title = photo.photoInfo?.title
-        if let author = photo.photoInfo?.author {
+        if let author = photo.photoInfo?.author where !author.isEmpty {
             authorLabel.text = "by \(author)"
             bottomBarBackgroundView.hidden = false
         }

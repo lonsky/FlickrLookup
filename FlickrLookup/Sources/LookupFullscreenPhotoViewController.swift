@@ -70,7 +70,9 @@ class LookupFullscreenPhotoViewController: UIViewController {
                 if status == .Authorized {
                     self?.doPhotoSaving()
                 } else if status != .NotDetermined {
-                    self?.navigationItem.rightBarButtonItem = nil
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.navigationItem.rightBarButtonItem = nil
+                    }
                 }
             }
         } else {

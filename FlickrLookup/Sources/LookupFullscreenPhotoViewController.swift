@@ -20,6 +20,8 @@ class LookupFullscreenPhotoViewController: UIViewController {
     @IBOutlet private weak var imageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var authorLabel: UILabel!
+    @IBOutlet private weak var bottomBarBackgroundView: UIView!
     
     var photo: Photo?
     var flickrPhotosLoader: FlickrDataLoader?
@@ -131,6 +133,10 @@ class LookupFullscreenPhotoViewController: UIViewController {
         photoImageView.hidden = false
         photoImageView.sizeToFit()
         navigationItem.title = photo.photoInfo?.title
+        if let author = photo.photoInfo?.author {
+            authorLabel.text = "by \(author)"
+            bottomBarBackgroundView.hidden = false
+        }
         
         let photoLibraryAuthStatus = PHPhotoLibrary.authorizationStatus()
         if photoLibraryAuthStatus != .Denied && photoLibraryAuthStatus != .Restricted {

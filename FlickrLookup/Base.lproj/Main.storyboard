@@ -238,18 +238,40 @@
                                     <outlet property="delegate" destination="aI5-JZ-erN" id="CfC-p9-Ln3"/>
                                 </connections>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="moE-ST-Ggc">
+                                <rect key="frame" x="0.0" y="570" width="600" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xu-Ww-l8I">
+                                        <rect key="frame" x="559" y="8.5" width="31" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70457974140000001" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="9xu-Ww-l8I" secondAttribute="trailing" constant="10" id="4EJ-VD-3rU"/>
+                                    <constraint firstItem="9xu-Ww-l8I" firstAttribute="centerY" secondItem="moE-ST-Ggc" secondAttribute="centerY" id="bBB-CO-yk2"/>
+                                    <constraint firstAttribute="height" constant="30" id="tpH-f9-o1s"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="DEq-1K-n7Z" secondAttribute="bottom" id="6qh-F6-PBq"/>
                             <constraint firstItem="DEq-1K-n7Z" firstAttribute="leading" secondItem="Jer-q3-RxE" secondAttribute="leading" id="8RQ-V5-tyP"/>
                             <constraint firstAttribute="trailing" secondItem="DEq-1K-n7Z" secondAttribute="trailing" id="BMh-3d-Nex"/>
+                            <constraint firstItem="5g6-mu-lXA" firstAttribute="top" secondItem="moE-ST-Ggc" secondAttribute="bottom" id="QcK-qe-xTP"/>
                             <constraint firstItem="DEq-1K-n7Z" firstAttribute="top" secondItem="Jer-q3-RxE" secondAttribute="top" id="oa7-vq-K1H"/>
+                            <constraint firstAttribute="trailing" secondItem="moE-ST-Ggc" secondAttribute="trailing" id="whk-6I-nmP"/>
+                            <constraint firstItem="moE-ST-Ggc" firstAttribute="leading" secondItem="Jer-q3-RxE" secondAttribute="leading" id="xZ2-Id-Epq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UKQ-YX-Y0g"/>
                     <connections>
                         <outlet property="activityIndicator" destination="q32-Qi-dY0" id="SzY-XY-j8Z"/>
+                        <outlet property="authorLabel" destination="9xu-Ww-l8I" id="2Fl-ef-KqN"/>
+                        <outlet property="bottomBarBackgroundView" destination="moE-ST-Ggc" id="q0u-Ch-wt7"/>
                         <outlet property="imageViewBottomConstraint" destination="Qmh-ji-7S8" id="oGG-u3-t2G"/>
                         <outlet property="imageViewLeadingConstraint" destination="bFz-cP-tyO" id="e2M-TO-GJa"/>
                         <outlet property="imageViewTopConstraint" destination="s0B-6q-6RR" id="15Q-pr-mgm"/>

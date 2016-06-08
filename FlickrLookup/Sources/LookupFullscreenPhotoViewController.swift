@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Photos
+
 
 class LookupFullscreenPhotoViewController: UIViewController {
 
@@ -60,6 +62,41 @@ class LookupFullscreenPhotoViewController: UIViewController {
         updateMinZoomScaleForSize(view.bounds.size)
     }
     
+    func saveButtonDidPress(sender: UIBarButtonItem) {
+        if PHPhotoLibrary.authorizationStatus() == .NotDetermined {
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                if status == .Authorized {
+                    self?.doPhotoSaving()
+                } else if status != .NotDetermined {
+                    self?.navigationItem.rightBarButtonItem = nil
+                }
+            }
+        } else {
+            doPhotoSaving()
+        }
+    }
+    
+    private func  doPhotoSaving() {
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ [weak self] in
+                guard let photoToSave = self?.photo?.photo else { return }
+    
+                let _ = PHAssetChangeRequest.creationRequestForAssetFromImage(photoToSave)
+            
+        }, completionHandler: { [weak self] success, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                self?.showPhotoSavingResult(success, error: error)
+            }
+        })
+    }
+    
+    private func showPhotoSavingResult(success: Bool, error: NSError?) {
+        let message = success ? "Photo was successfully saved!": "Can't save photo"
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+        alertController.addAction(action)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     //MARK: - Zooming
     
@@ -94,6 +131,12 @@ class LookupFullscreenPhotoViewController: UIViewController {
         photoImageView.hidden = false
         photoImageView.sizeToFit()
         navigationItem.title = photo.photoInfo?.title
+        
+        let photoLibraryAuthStatus = PHPhotoLibrary.authorizationStatus()
+        if photoLibraryAuthStatus != .Denied && photoLibraryAuthStatus != .Restricted {
+            let navigationButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: #selector(saveButtonDidPress))
+            navigationItem.rightBarButtonItem = navigationButton
+        }
     }
 }
 

@@ -55,12 +55,16 @@ class FlickrPagingLookup {
     
     private func doLookup() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        dataLoader.searchPhotos(lookupText ?? "", page: currentPage, itemsPerPage: itemsPerPage) { [weak self] photos, numberOfPages in
+        dataLoader.searchPhotos(lookupText ?? "", page: currentPage, itemsPerPage: itemsPerPage) { [weak self] photos, numberOfPages, error in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
+            
             self?.numberOfPages = numberOfPages
-            //TODO: error
-            self?.lookupResults?(photos ?? [], nil)
+            
+            if let photos = photos {
+                self?.lookupResults?(photos, nil)
+            } else {
+                self?.lookupResults?([], error)
+            }
         }
     }
     

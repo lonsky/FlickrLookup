@@ -63,9 +63,9 @@ class FlickrDataLoader {
         dataLoaderOperationQueue.addOperations([downloadPhotoOperation, downloadPhotoInfoOperation], waitUntilFinished: false)
     }
     
-    func searchPhotos(text: String, page: Int, itemsPerPage: Int, completion: (([Photo]?, numberOfPages: Int) -> Void)) {
+    func searchPhotos(text: String, page: Int, itemsPerPage: Int, completion: ((photos: [Photo]?, numberOfPages: Int, error: NSError?) -> Void)) {
         guard let url = FlickrURLFactory.lookupURL(text, page: page, itemsPerPage: itemsPerPage) else {
-            completion(nil, numberOfPages: 0)
+            completion(photos: nil, numberOfPages: 0, error: nil)
             return
         }
             
@@ -73,13 +73,13 @@ class FlickrDataLoader {
             guard let searchResults = NSData(contentsOfURL: url),
                 let parserResults = self?.parser.parsePhotosLookupResults(searchResults) else {
                 dispatch_async(dispatch_get_main_queue()){
-                    completion(nil, numberOfPages: 0)
+                    completion(photos: nil, numberOfPages: 0, error: nil)
                 }
                 return
             }
             
             dispatch_async(dispatch_get_main_queue()){
-                completion(parserResults.photos, numberOfPages: parserResults.numberOfPages)
+                completion(photos: parserResults.photos, numberOfPages: parserResults.numberOfPages, error: nil)
             }
         }
     }

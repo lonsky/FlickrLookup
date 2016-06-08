@@ -27,7 +27,7 @@ class LookupResultsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let lookupKey = lookupKey else { fatalError("lookupKey key shouldn't be nil") }
+        guard let lookupKey = lookupKey else { fatalError("lookupKey key shouldn't be nil here") }
         
         navigationItem.title = lookupKey
 
@@ -36,14 +36,24 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         flickrLookup = FlickrPagingLookup(dataLoader: flickrPhotosLoader)
         
         flickrLookup.lookup(lookupKey) { [weak self] photos, error in
-            if error == nil {
-                self?.photos.appendContentsOf(photos)
-                self?.collectionView?.reloadData()
-            } else {
-                // TODO: process errors
-            }
             
-            self?.fetchingInProgress = false
+            defer { self?.fetchingInProgress = false }
+            
+            guard let localSelf = self else { return }
+            
+            if error == nil {
+                
+                if photos.isEmpty && localSelf.photos.isEmpty  {
+                    // TODO: change aggressive popup alerts to something more gentle. don't show tech details to user
+                    localSelf.showAlert("", message: "Couldn't find public photos that contain `\(localSelf.lookupKey)` text. What an opportunity! Upload your photo to Flickr and use the text in the title, description or keywords")
+                } else {
+                    localSelf.photos.appendContentsOf(photos)
+                    localSelf.collectionView?.reloadData()
+                }
+            } else {
+                // TODO: change aggressive popup alerts to something more gentle. don't show tech details to user
+                localSelf.showAlert("", message: "Something went wrong while trying to fetch search results. Try to repeat lookup")
+            }
         }
     }
     
@@ -141,6 +151,19 @@ class LookupResultsCollectionViewController: UICollectionViewController {
 
         cellSizeCache = CGSize(width: sideSize, height: sideSize)
         return cellSizeCache!
+    }
+    
+    
+    // MARK: - Helpers
+ 
+    private func showAlert(title: String?, message: String) {
+        // TODO: move to some Utils
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Cancel) { [weak self] _ in
+            self?.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alertController.addAction(action)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

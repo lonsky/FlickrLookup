@@ -115,9 +115,9 @@ class LookupResultsCollectionViewController: UICollectionViewController {
         cell.tag = indexPath.row
         
         if photo.thumbnail == nil {
-            flickrPhotosLoader.loadThumbnail(photo) { success, error in
+            flickrPhotosLoader.loadThumbnail(photo) { [weak self] success, error in
                 if success {
-                    collectionView.reloadItemsAtIndexPaths([indexPath])
+                    self?.collectionView?.reloadItemsAtIndexPaths([indexPath])
                 }
             }
         }
